@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to PASMA</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Custom Styles -->
+    <style>
+      :root {
+        --primary-color: #00a884;
+        --secondary-color: #e8f5f1;
+        --text-color: #333333;
+        --light-text: #666666;
+        --white: #ffffff;
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        color: var(--text-color);
+        background-color: var(--white);
+        overflow-x: hidden;
+      }
+
+      .navbar-custom {
+        background-color: var(--white) !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-custom .nav-link {
+        color: var(--text-color) !important;
+        font-weight: 500;
+      }
+
+      .navbar-custom .nav-link.active {
+        color: var(--primary-color) !important;
+      }
+
+      .logo {
+        width: 50px;
+        height: 50px;
+        margin-top: 0;
+        margin-left: 2px;
+      }
+
+      .myimg {
+        width: 50px;
+        height: 50px;
+        border: 2px solid var(--primary-color);
+        border-radius: 25px;
+      }
+
+      .hero-section {
+        background-color: var(--secondary-color);
+        padding: 80px 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-content {
+        max-width: 600px;
+        z-index: 2;
+        position: relative;
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        line-height: 1.2;
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+        color: var(--light-text);
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      .btn-primary-custom {
+        background-color: var(--primary-color);
+        color: var(--white);
+        border: none;
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-primary-custom:hover {
+        background-color: #008f6c;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 168, 132, 0.2);
+        color: var(--white);
+      }
+
+      .doctor-image {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        max-height: 90%;
+        z-index: 1;
+      }
+
+      .features-section {
+        padding: 80px 0;
+      }
+
+      .feature-card {
+        background-color: var(--white);
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        height: 100%;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+      }
+
+      .feature-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+
+      .feature-description {
+        color: var(--light-text);
+        line-height: 1.6;
+      }
+
+      /* Auth button styles */
+      .auth-btn {
+        color: var(--text-color);
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        padding: 8px 20px;
+        border-radius: 50px;
+      }
+
+      .login-btn {
+        border: 1px solid var(--primary-color);
+      }
+
+      .login-btn:hover {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+      }
+
+      .signup-btn {
+        background-color: var(--primary-color);
+        color: var(--white);
+        margin-left: 10px;
+      }
+
+      .signup-btn:hover {
+        background-color: #008f6c;
+        color: var(--white);
+      }
+
+      /* FAQ Section Styles */
+      .faq-section {
+        padding: 80px 0;
+        background-color: var(--secondary-color);
+      }
+
+      .faq-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--text-color);
+        margin-bottom: 40px;
+        text-align: center;
+      }
+
+      .accordion-item {
+        border: none;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .accordion-button {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-color);
+        background-color: var(--white);
+        padding: 20px 25px;
+      }
+
+      .accordion-button:not(.collapsed) {
+        color: var(--primary-color);
+        background-color: var(--white);
+        box-shadow: none;
+      }
+
+      .accordion-button:focus {
+        box-shadow: none;
+        border-color: rgba(0, 0, 0, 0.125);
+      }
+
+      .accordion-button::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2300a884'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+      }
+
+      .accordion-body {
+        padding: 20px 25px;
+        color: var(--light-text);
+        line-height: 1.6;
+      }
+
+      .contact-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .contact-link:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 992px) {
+        .hero-title {
+          font-size: 2.8rem;
+        }
+
+        .doctor-image {
+          opacity: 0.3;
+          max-height: 80%;
+        }
+
+        .hero-content {
+          max-width: 100%;
+        }
+
+        .faq-title {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 2.2rem;
+        }
+
+        .hero-section {
+          padding: 60px 0;
+        }
+
+        .features-section {
+          padding: 60px 0;
+        }
+
+        .faq-section {
+          padding: 60px 0;
+        }
+
+        .accordion-button {
+          font-size: 1.1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+  <div class="container">
+    <div class="logo">
+      <img class="myimg" src="{{ url_for('static', filename='img.png') }}" alt="PASMA Logo">
+    </div>
+    <a class="navbar-brand" style="font-weight: bold; color: #00a884;">PASMA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown me-2">
+          <a class="auth-btn login-btn dropdown-toggle" href="#" id="loginDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Login
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="loginDropdown">
+            <li><a class="dropdown-item" href="{{ url_for('login') }}">Login as Patient</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('doctor_login') }}">Login as Doctor</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="auth-btn signup-btn dropdown-toggle" href="#" id="signupDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Sign Up
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="signupDropdown">
+            <li><a class="dropdown-item" href="{{ url_for('signup') }}">Sign Up as Patient</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('doctor_signup') }}">Sign Up as Doctor</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="hero-content">
+              <h1 class="hero-title">We're Determined For Your Better Life</h1>
+              <p class="hero-subtitle">
+                PASMA (Personalised AI-Powered Smart Medical Assistant) is your trusted companion for health and wellness.
+                Get instant disease predictions based on your symptoms, personalized recommendations for precautions,
+                medications, diets, and workouts.
+              </p>
+              <a href="{{ url_for('login') }}" class="btn-primary-custom">
+                <i class="fas fa-arrow-right me-2"></i> Get Started
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <img src="{{ url_for('static', filename='doctor-image.png') }}" alt="Healthcare Professionals" class="doctor-image">
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+            <h2 class="section-title">Why Choose PASMA?</h2>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-stethoscope"></i>
+              </div>
+              <h3 class="feature-title">Accurate Diagnosis</h3>
+              <p class="feature-description">
+                Our AI-powered system analyzes your symptoms to provide accurate disease predictions and personalized health recommendations.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-heartbeat"></i>
+              </div>
+              <h3 class="feature-title">Personalized Care</h3>
+              <p class="feature-description">
+                Receive tailored recommendations for medications, precautions, diet plans, and workout routines based on your health condition.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <h3 class="feature-title">24/7 Availability</h3>
+              <p class="feature-description">
+                Access healthcare information and assistance anytime, anywhere. PASMA is always available to help with your health concerns.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container">
+        <h2 class="faq-title">Frequently Asked Questions</h2>
+        <div class="accordion" id="faqAccordion">
+          <!-- FAQ Item 1 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Can PASMA replace my doctor?
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                No, PASMA is designed to be a complementary tool to healthcare professionals, not a replacement. While our AI-powered system can provide preliminary disease predictions based on symptoms and offer general health recommendations, it should not substitute professional medical advice. Always consult with a qualified healthcare provider for proper diagnosis and treatment.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 2 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                How do I ensure my health data is safe with PASMA?
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                PASMA takes data security and privacy very seriously. We implement industry-standard encryption protocols to protect your personal information. Your health data is stored securely and is never shared with third parties without your explicit consent. You have complete control over your data and can request its deletion at any time through your account settings.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 3 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Why should I choose PASMA as my Personal Health Assistant?
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                PASMA offers a unique combination of AI-powered disease prediction and personalized health recommendations. Our system is trained on extensive medical data to provide accurate insights. Unlike generic health apps, PASMA provides tailored advice for medications, precautions, diet plans, and workout routines based on your specific health condition. It's available 24/7, easy to use, and continuously improving through machine learning.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 4 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFour">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                What kind of health issues can PASMA help with?
+              </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                PASMA can help identify a wide range of common health conditions based on the symptoms you report. Our system is trained to recognize patterns associated with various diseases including respiratory infections, digestive disorders, skin conditions, and more. However, PASMA is most effective for preliminary assessments and should not be used for emergency situations or as a substitute for professional medical diagnosis.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 5 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFive">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                How reliable are the health insights provided by PASMA?
+              </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                PASMA uses advanced machine learning algorithms trained on medical datasets to provide reliable health insights. Our system has been developed with input from healthcare professionals and is regularly updated with the latest medical knowledge. However, it's important to understand that no AI system can be 100% accurate. The predictions and recommendations should be used as a starting point for discussions with healthcare providers, not as definitive diagnoses.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 6 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSix">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                How can I get started with PASMA?
+              </button>
+            </h2>
+            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Getting started with PASMA is simple. Just create an account by clicking the "Sign Up" button, fill in your basic health information, and you're ready to go. You can then enter your symptoms to receive disease predictions and personalized health recommendations. The more you use PASMA, the more personalized your experience becomes as our system learns about your health patterns and preferences.
+              </div>
+            </div>
+          </div>
+
+          <!-- Have more questions -->
+          <div class="mt-4 text-center">
+            <p class="fs-5">Have more questions? <a href="{{ url_for('login') }}" class="contact-link">Contact us</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
+
