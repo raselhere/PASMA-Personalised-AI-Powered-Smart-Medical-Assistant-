@@ -30,6 +30,7 @@ DOCTOR_CREDENTIALS_FILE = "doctor_credentials.json"
 APPOINTMENT_FILE = "appointments.json"
 MEDICATION_FILE = "medications.json"  # New file for medications
 CHAT_HISTORY_FILE = "chat_history.json"  # For storing AI assistant chat history
+NEWSLETTER_FILE = "newsletter_emails.json"  # For storing newsletter email subscriptions
 
 
 def load_users():
@@ -147,6 +148,21 @@ def load_chat_history():
 def save_chat_history(chat_history):
     with open(CHAT_HISTORY_FILE, "w") as f:
         json.dump(chat_history, f, indent=4)
+
+
+def load_newsletter_emails():
+    if not os.path.exists(NEWSLETTER_FILE):
+        return []
+    try:
+        with open(NEWSLETTER_FILE, "r") as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        return []
+
+
+def save_newsletter_emails(emails):
+    with open(NEWSLETTER_FILE, "w") as f:
+        json.dump(emails, f, indent=4)
 
 
 def allowed_file(filename):
@@ -677,6 +693,53 @@ def contact():
 @app.route('/purchase')
 def purchase():
     return render_template("purchase.html")
+
+
+# Newsletter signup route
+@app.route('/newsletter_signup', methods=['POST'])
+def newsletter_signup():
+    try:
+        # Get email from form data
+        email = request.form.get('email', '').strip().lower()
+        
+        if not email:
+            return jsonify({"success": False, "message": "Email is required"}), 400
+            
+        # Basic email validation
+        import re
+        email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(email_pattern, email):
+            return jsonify({"success": False, "message": "Please enter a valid email address"}), 400
+        
+        # Load existing newsletter emails
+        newsletter_emails = load_newsletter_emails()
+        
+        # Check if email already exists
+        existing_emails = [entry['email'] for entry in newsletter_emails if isinstance(entry, dict)]
+        if email in existing_emails:
+            return jsonify({"success": False, "message": "This email is already subscribed to our newsletter"}), 400
+        
+        # Add new email subscription
+        new_subscription = {
+            "email": email,
+            "subscribed_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "status": "active",
+            "source": "landing_page"
+        }
+        
+        newsletter_emails.append(new_subscription)
+        
+        # Save updated newsletter emails
+        save_newsletter_emails(newsletter_emails)
+        
+        return jsonify({
+            "success": True, 
+            "message": "Thank you for subscribing to our newsletter! You'll receive health tips and updates from PASMA."
+        })
+        
+    except Exception as e:
+        print(f"Error in newsletter signup: {str(e)}")
+        return jsonify({"success": False, "message": "An error occurred. Please try again later."}), 500
 
 
 # AI Assistant Chat endpoint
