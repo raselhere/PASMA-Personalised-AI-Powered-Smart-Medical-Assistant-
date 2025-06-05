@@ -31,4 +31,4 @@ Thumbs.db
 *.sqlite
 
 # Environment
-.env 
+.env SnapShots/
