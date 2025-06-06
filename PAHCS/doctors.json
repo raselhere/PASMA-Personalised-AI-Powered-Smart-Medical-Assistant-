@@ -1,1 +1,22 @@
-[]
+[
+    {
+        "id": "52266e14-6c52-40b5-8235-67e9c4f2ccbf",
+        "name": "Rasel Ahmed",
+        "gender": "male",
+        "email": "rasel.doc@gmail.com",
+        "phone": "01521582181",
+        "age": "25",
+        "dob": "2000-10-23",
+        "license": "9999388333",
+        "nid": "7746383833",
+        "specialization": "",
+        "experience": "",
+        "fee": "",
+        "hospital": "",
+        "bio": "",
+        "languages": "",
+        "address": "",
+        "timeSlots": [],
+        "createdAt": "2025-06-06 01:48:28"
+    }
+]

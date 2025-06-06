@@ -15,6 +15,116 @@
                 "date": "2025-06-05 01:32:27",
                 "symptoms": "itching",
                 "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-06-06 01:20:56",
+                "symptoms": "cramps",
+                "predicted_disease": "Urinary tract infection"
+            },
+            {
+                "date": "2025-06-06 01:21:13",
+                "symptoms": "cramps",
+                "predicted_disease": "Urinary tract infection"
+            },
+            {
+                "date": "2025-06-06 01:21:17",
+                "symptoms": "watering_from_eyes",
+                "predicted_disease": "Allergy"
+            },
+            {
+                "date": "2025-06-06 01:21:36",
+                "symptoms": "high_fever,  vomiting, throat_irritation",
+                "predicted_disease": "AIDS"
+            },
+            {
+                "date": "2025-06-06 01:21:43",
+                "symptoms": "stomach_pain",
+                "predicted_disease": "Drug Reaction"
+            },
+            {
+                "date": "2025-06-06 01:21:51",
+                "symptoms": "stomach_pain",
+                "predicted_disease": "Drug Reaction"
+            },
+            {
+                "date": "2025-06-06 01:22:12",
+                "symptoms": "depression",
+                "predicted_disease": "Urinary tract infection"
+            },
+            {
+                "date": "2025-06-06 01:22:20",
+                "symptoms": "stomach_pain",
+                "predicted_disease": "Drug Reaction"
+            },
+            {
+                "date": "2025-06-06 01:22:28",
+                "symptoms": "skin_rash",
+                "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-06-06 01:26:29",
+                "symptoms": "skin_rash",
+                "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-06-06 01:26:39",
+                "symptoms": "itching",
+                "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-06-06 01:26:52",
+                "symptoms": "itching",
+                "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-06-06 01:30:20",
+                "symptoms": "itching",
+                "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-06-06 01:30:25",
+                "symptoms": "itching",
+                "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-06-06 01:30:36",
+                "symptoms": "itching",
+                "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-06-06 01:33:37",
+                "symptoms": "itching",
+                "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-06-06 01:34:10",
+                "symptoms": "itching",
+                "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-06-06 01:37:12",
+                "symptoms": "itching",
+                "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-06-06 01:37:17",
+                "symptoms": "itching",
+                "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-06-06 01:38:12",
+                "symptoms": "itching",
+                "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-06-06 01:38:17",
+                "symptoms": "itching",
+                "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-06-06 01:41:40",
+                "symptoms": "itching",
+                "predicted_disease": "Fungal infection"
             }
         ]
     }
