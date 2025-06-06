@@ -9,7 +9,19 @@
         "blood_group": "A+",
         "address": "West Shewrapara, shamim Saroni, 555, 4th floor, Mirpur Dhaka 1216",
         "emergency_contact": "01796351793",
-        "medications": [],
+        "medications": [
+            {
+                "id": "6e3148c0-d942-4791-ace5-de501ac2a0f9",
+                "name": "Napa",
+                "dosage": "50mg",
+                "frequency": "Twice daily",
+                "start_date": "2025-06-06",
+                "end_date": "2025-06-13",
+                "instructions": "",
+                "reminder": false,
+                "created_at": "2025-06-06 18:14:48"
+            }
+        ],
         "medical_history": [
             {
                 "date": "2025-06-05 01:32:27",
