@@ -7,251 +7,884 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #00a884;
-            --secondary-color: #e8f5f1;
-            --text-color: #333333;
-            --light-text: #666666;
+            --primary-dark: #008f6c;
+            --primary-light: #e8f5f1;
+            --secondary-color: #00d4aa;
+            --accent-color: #ff6b35;
+            --accent-secondary: #8b5cf6;
+            --text-color: #2d3748;
+            --light-text: #718096;
             --white: #ffffff;
-            --teal: #00a884;
-            --dark-teal: #008f6c;
+            --light-bg: #f7fafc;
+            --gradient-primary: linear-gradient(135deg, #00a884 0%, #00d4aa 100%);
+            --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-hero: linear-gradient(135deg, #00a884 0%, #00d4aa 50%, #8b5cf6 100%);
+            --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-medium: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-strong: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --shadow-glow: 0 0 30px rgba(0, 168, 132, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background-color: var(--secondary-color);
-            margin: 0;
             font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, 
+                rgba(0, 168, 132, 0.1) 0%, 
+                rgba(139, 92, 246, 0.1) 50%, 
+                rgba(255, 255, 255, 0.95) 100%);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+            color: var(--text-color);
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 168, 132, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(0, 212, 170, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(-20px) translateY(-10px); }
+            50% { transform: translateX(20px) translateY(20px); }
+            75% { transform: translateX(-10px) translateY(10px); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float-particles 12s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) { width: 60px; height: 60px; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 40px; height: 40px; left: 20%; animation-delay: 3s; }
+        .particle:nth-child(3) { width: 80px; height: 80px; left: 35%; animation-delay: 6s; }
+        .particle:nth-child(4) { width: 30px; height: 30px; left: 70%; animation-delay: 2s; }
+        .particle:nth-child(5) { width: 100px; height: 100px; left: 80%; animation-delay: 8s; }
+        .particle:nth-child(6) { width: 50px; height: 50px; left: 60%; animation-delay: 4s; }
+
+        @keyframes float-particles {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(30px) rotate(240deg); }
         }
 
         .signup-container {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 30px 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
 
-        .signup-panel {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            height: 100%;
-            color: var(--text-color);
-            position: relative;
+        .signup-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: var(--shadow-strong);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             overflow: hidden;
+            position: relative;
+            width: 100%;
+            min-height: auto;
         }
 
-        .signup-panel::before {
+        .signup-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--primary-color);
-        }
-
-        .signup-panel h2 {
-            margin-bottom: 30px;
-            text-align: center;
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-
-        .signup-panel label {
-            font-weight: 500;
-            color: var(--text-color);
-            margin-bottom: 8px;
-        }
-
-        .signup-panel input, .signup-panel select {
-            margin-bottom: 20px;
-            border-radius: 8px;
-            padding: 12px 15px;
-            border: 1px solid #e0e0e0;
-            transition: all 0.3s ease;
-        }
-
-        .signup-panel input:focus, .signup-panel select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 168, 132, 0.1);
-            outline: none;
-        }
-
-        .signup-panel .btn-primary {
-            background-color: var(--primary-color);
-            border: none;
-            padding: 12px;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .signup-panel .btn-primary:hover {
-            background-color: var(--dark-teal);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 168, 132, 0.2);
-        }
-
-        .signup-panel a {
-            text-decoration: none;
-            color: var(--primary-color);
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .signup-panel a:hover {
-            color: var(--dark-teal);
-        }
-
-        .icon-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .icon-circle {
-            width: 70px;
-            height: 70px;
-            background-color: var(--secondary-color);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 5px 15px rgba(0, 168, 132, 0.1);
-        }
-
-        .icon-circle i {
-            font-size: 30px;
-            color: var(--primary-color);
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            z-index: 1;
         }
 
         .info-panel {
-            background: var(--primary-color);
-            color: var(--white);
-            border-radius: 15px;
-            padding: 40px;
+            background: var(--gradient-hero);
+            padding: 40px 30px;
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            z-index: 0;
+        }
+
+        .info-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .info-panel .logo-container {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            animation: logoFloat 3s ease-in-out infinite;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .info-panel img {
-            width: 80px;
-            height: 80px;
-            border: 3px solid var(--white);
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .info-panel .logo-container img {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            margin-bottom: 20px;
         }
 
         .info-panel h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
+            font-size: 2.2rem;
+            font-weight: 800;
             margin-bottom: 20px;
+            color: var(--white);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            line-height: 1.2;
+            text-align: center;
         }
 
         .info-panel p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
             line-height: 1.6;
-            max-width: 400px;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            max-width: 100%;
+        }
+
+        /* Features Showcase */
+        .features-showcase {
+            margin: 20px 0;
+            width: 100%;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .feature-icon i {
+            font-size: 16px;
+            color: var(--white);
+        }
+
+        .feature-text h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .feature-text p {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        /* Trust Indicators */
+        .trust-section {
+            margin: 20px 0 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+        }
+
+        .trust-title {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 12px;
+            text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+
+        .stat-item {
+            color: var(--white);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
         }
 
         .info-panel .btn-outline {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.1);
             color: var(--white);
-            border: 2px solid var(--white);
-            padding: 10px 25px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 25px;
             border-radius: 50px;
             font-weight: 600;
-            transition: all 0.3s ease;
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-size: 0.9rem;
+            margin-top: 10px;
         }
 
         .info-panel .btn-outline:hover {
             background: var(--white);
             color: var(--primary-color);
             transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
         }
 
-        .signup-row {
-            min-height: 650px;
+        .signup-panel {
+            background: var(--white);
+            padding: 40px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .signup-header .icon-container {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: var(--shadow-medium);
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .signup-header .icon-container i {
+            font-size: 28px;
+            color: var(--white);
+        }
+
+        .signup-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .signup-header p {
+            color: var(--light-text);
+            font-size: 1rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 14px 18px 14px 45px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            background: var(--white);
+            position: relative;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(0, 168, 132, 0.1);
+            outline: none;
+            transform: translateY(-2px);
+        }
+
+        .form-control:hover {
+            border-color: var(--secondary-color);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--light-text);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .form-group:focus-within .input-icon {
+            color: var(--primary-color);
+        }
+
+        .btn-signup {
+            background: var(--gradient-primary);
+            border: none;
+            padding: 14px 35px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            font-size: 1rem;
+            color: var(--white);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            margin-top: 18px;
+        }
+
+        .btn-signup::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-signup:hover::before {
+            left: 100%;
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
         }
 
         .required-field::after {
             content: " *";
-            color: red;
+            color: #e53e3e;
+            font-weight: 600;
         }
 
-        .optional-text {
-            font-size: 0.8rem;
+        .signup-footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .signup-footer p {
             color: var(--light-text);
-            font-style: italic;
-            margin-left: 5px;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
         }
 
+        .signup-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .signup-footer a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        /* Form validation styles */
+        .form-control.is-valid {
+            border-color: #28a745;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='m2.3 6.73.94-.94 2.94 2.94L6.9 9.4 2.3 6.73z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+        }
+
+        .form-control.is-invalid {
+            border-color: #dc3545;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath d='m5.8 4.6 2.4 2.4m0-2.4L5.8 7'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
         @media (max-width: 991px) {
-            .info-panel {
-                margin-bottom: 30px;
+            .signup-container {
+                padding: 20px 15px;
+                align-items: flex-start;
+                padding-top: 40px;
+                padding-bottom: 40px;
             }
 
-            .signup-row {
+            .info-panel {
+                padding: 35px 25px;
+                text-align: center;
+                justify-content: center;
+            }
+
+            .info-content {
+                max-width: 100%;
+            }
+
+            .info-panel h1 {
+                font-size: 2rem;
+                margin-bottom: 18px;
+            }
+
+            .info-panel p {
+                font-size: 0.9rem;
+                margin-bottom: 22px;
+            }
+
+            .features-showcase {
+                margin: 18px 0;
+            }
+
+            .feature-item {
+                padding: 10px 12px;
+                margin-bottom: 10px;
+            }
+
+            .feature-icon {
+                width: 35px;
+                height: 35px;
+                margin-right: 10px;
+            }
+
+            .feature-icon i {
+                font-size: 14px;
+            }
+
+            .feature-text h4 {
+                font-size: 0.85rem;
+            }
+
+            .feature-text p {
+                font-size: 0.7rem;
+            }
+
+            .trust-section {
+                margin: 18px 0 12px 0;
+                padding: 12px;
+            }
+
+            .stat-number {
+                font-size: 1.2rem;
+            }
+
+            .stat-label {
+                font-size: 0.6rem;
+            }
+
+            .signup-panel {
+                padding: 30px 25px;
+            }
+
+            .signup-header h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .signup-container {
+                padding: 15px 10px;
+                align-items: flex-start;
+                padding-top: 20px;
+                padding-bottom: 20px;
                 min-height: auto;
             }
+
+            .signup-card {
+                min-height: auto;
+            }
+
+            .info-panel {
+                padding: 30px 20px;
+                justify-content: center;
+            }
+
+            .info-content {
+                max-width: 100%;
+            }
+
+            .info-panel .logo-container {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 20px;
+            }
+
+            .info-panel .logo-container img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .info-panel h1 {
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+
+            .info-panel p {
+                font-size: 0.85rem;
+                margin-bottom: 20px;
+            }
+
+            .features-showcase {
+                margin: 15px 0;
+            }
+
+            .feature-item {
+                padding: 8px 10px;
+                margin-bottom: 8px;
+            }
+
+            .feature-icon {
+                width: 32px;
+                height: 32px;
+                margin-right: 8px;
+            }
+
+            .feature-icon i {
+                font-size: 12px;
+            }
+
+            .feature-text h4 {
+                font-size: 0.8rem;
+                margin-bottom: 3px;
+            }
+
+            .feature-text p {
+                font-size: 0.65rem;
+                line-height: 1.3;
+            }
+
+            .trust-section {
+                margin: 15px 0 10px 0;
+                padding: 10px;
+            }
+
+            .trust-title {
+                font-size: 0.75rem;
+                margin-bottom: 8px;
+            }
+
+            .stats-grid {
+                gap: 8px;
+            }
+
+            .stat-number {
+                font-size: 1.1rem;
+                margin-bottom: 3px;
+            }
+
+            .stat-label {
+                font-size: 0.55rem;
+            }
+
+            .info-panel .btn-outline {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+                margin-top: 8px;
+            }
+
+            .signup-panel {
+                padding: 25px 20px;
+            }
+
+            .signup-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .form-control {
+                padding: 10px 14px 10px 38px;
+                font-size: 0.85rem;
+            }
+
+            .btn-signup {
+                padding: 12px 30px;
+                font-size: 0.95rem;
+            }
         }
+
+        /* Animation Classes */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
     </style>
   </head>
   <body>
+    <!-- Animated Background Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
     <div class="signup-container">
-        <div class="row signup-row g-0">
+        <div class="signup-card" data-aos="zoom-in" data-aos-duration="800">
+            <div class="row g-0 h-100">
             <!-- Left Side - Info Panel -->
             <div class="col-lg-5">
                 <div class="info-panel">
+                        <div class="info-content">
+                            <div class="logo-container" data-aos="fade-down" data-aos-delay="200">
                     <img src="{{ url_for('static', filename='img.png') }}" alt="PASMA Logo">
-                    <h1>Join PASMA as a Doctor</h1>
-                    <p>Create your doctor account to manage appointments, patient records, and provide medical services through our platform.</p>
-                    <a href="{{ url_for('doctor_login') }}" class="btn-outline">
-                        <i class="fas fa-sign-in-alt me-2"></i> Already have an account?
-                    </a>
+                            </div>
+                            <h1 data-aos="fade-up" data-aos-delay="300">Join PASMA as a Doctor</h1>
+                            <p data-aos="fade-up" data-aos-delay="400">Create your professional account to manage appointments, patient records, and provide medical services through our advanced platform.</p>
+                            
+                            <!-- Features Showcase -->
+                            <div class="features-showcase" data-aos="fade-up" data-aos-delay="500">
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-calendar-check"></i>
+                                    </div>
+                                    <div class="feature-text">
+                                        <h4>Smart Appointment System</h4>
+                                        <p>Efficiently manage your schedule with automated booking and reminders</p>
+                                    </div>
+                                </div>
+
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-file-medical"></i>
+                                    </div>
+                                    <div class="feature-text">
+                                        <h4>Digital Patient Records</h4>
+                                        <p>Access comprehensive patient history and medical data securely</p>
+                                    </div>
+                                </div>
+
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-shield-virus"></i>
+                                    </div>
+                                    <div class="feature-text">
+                                        <h4>AI-Assisted Diagnosis</h4>
+                                        <p>Get intelligent insights to support your medical decisions</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Trust Indicators -->
+                            <div class="trust-section" data-aos="fade-up" data-aos-delay="600">
+                                <div class="trust-title">Trusted by Healthcare Professionals</div>
+                                <div class="stats-grid">
+                                    <div class="stat-item">
+                                        <span class="stat-number">500+</span>
+                                        <span class="stat-label">Doctors</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-number">15K+</span>
+                                        <span class="stat-label">Patients</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-number">24/7</span>
+                                        <span class="stat-label">Support</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="{{ url_for('doctor_login') }}" class="btn-outline" data-aos="fade-up" data-aos-delay="700">
+                                <i class="fas fa-sign-in-alt"></i> Already have an account?
+                            </a>
+                        </div>
                 </div>
             </div>
 
             <!-- Right Side - Signup Form -->
             <div class="col-lg-7">
                 <div class="signup-panel">
-                    <div class="icon-container">
-                        <div class="icon-circle">
+                        <div class="signup-header">
+                            <div class="icon-container" data-aos="zoom-in" data-aos-delay="500">
                             <i class="fas fa-user-md"></i>
                         </div>
+                            <h2 data-aos="fade-up" data-aos-delay="600">Create Doctor Account</h2>
+                            <p data-aos="fade-up" data-aos-delay="700">Fill in your professional details to join our medical network</p>
                     </div>
-                    <h2>Create Doctor Account</h2>
+
                     {% if error %}
-                    <div class="alert alert-danger" role="alert">
-                        {{ error }}
+                    <div class="alert alert-danger" role="alert" data-aos="fade-in" data-aos-delay="800">
+                        <i class="fas fa-exclamation-triangle me-2"></i>{{ error }}
                     </div>
                     {% endif %}
-                    <form id="doctorSignupForm" action="{{ url_for('doctor_signup') }}" method="POST">
+
+                        <form id="doctorSignupForm" action="{{ url_for('doctor_signup') }}" method="POST" data-aos="fade-up" data-aos-delay="800">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                    <div class="form-group fade-in-up stagger-1">
                                     <label for="signup-name" class="required-field">Full Name</label>
-                                    <input type="text" class="form-control" id="signup-name" name="name" placeholder="Enter your full name" required>
+                                        <div class="position-relative">
+                                            <i class="fas fa-user input-icon"></i>
+                                            <input type="text" class="form-control" id="signup-name" name="name" placeholder="Enter your full name" required>
+                                        </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                    <div class="form-group fade-in-up stagger-2">
                                     <label for="signup-gender" class="required-field">Gender</label>
+                                        <div class="position-relative">
+                                            <i class="fas fa-venus-mars input-icon"></i>
                                     <select class="form-control" id="signup-gender" name="gender" required>
                                         <option value="">Select Gender</option>
                                         <option value="male">Male</option>
@@ -259,81 +892,302 @@
                                         <option value="other">Other</option>
                                         <option value="prefer-not-to-say">Prefer not to say</option>
                                     </select>
+                                        </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                    <div class="form-group fade-in-up stagger-3">
                                     <label for="signup-phone" class="required-field">Phone Number</label>
-                                    <input type="text" class="form-control" id="signup-phone" name="phone" placeholder="Enter your phone number" required>
+                                        <div class="position-relative">
+                                            <i class="fas fa-phone input-icon"></i>
+                                            <input type="text" class="form-control" id="signup-phone" name="phone" placeholder="Enter your phone number" required>
+                                        </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                    <div class="form-group fade-in-up stagger-4">
                                     <label for="signup-age" class="required-field">Age</label>
-                                    <input type="number" class="form-control" id="signup-age" name="age" placeholder="Enter your age" min="1" max="120" required>
+                                        <div class="position-relative">
+                                            <i class="fas fa-calendar-alt input-icon"></i>
+                                            <input type="number" class="form-control" id="signup-age" name="age" placeholder="Enter your age" min="1" max="120" required>
+                                        </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                    <div class="form-group fade-in-up stagger-5">
                                     <label for="signup-dob" class="required-field">Date of Birth</label>
+                                        <div class="position-relative">
+                                            <i class="fas fa-birthday-cake input-icon"></i>
                                     <input type="date" class="form-control" id="signup-dob" name="dob" required>
+                                        </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="signup-license" class="required-field">Medical License/Registration Number</label>
-                                    <input type="text" class="form-control" id="signup-license" name="license" placeholder="Enter your license number" required>
+                                    <div class="form-group fade-in-up stagger-1">
+                                    <label for="signup-license" class="required-field">Medical License Number</label>
+                                        <div class="position-relative">
+                                            <i class="fas fa-certificate input-icon"></i>
+                                            <input type="text" class="form-control" id="signup-license" name="license" placeholder="Enter your license number" required>
+                                        </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="signup-nid" class="required-field">NID/Birth Certificate Number</label>
+                            <div class="form-group fade-in-up stagger-2">
+                            <label for="signup-nid" class="required-field">NID/Birth Certificate Number</label>
+                                <div class="position-relative">
+                                    <i class="fas fa-id-card input-icon"></i>
                                     <input type="text" class="form-control" id="signup-nid" name="nid" placeholder="Enter your NID or Birth Certificate Number" required>
                                 </div>
-                            </div>
                         </div>
 
-                        <div class="form-group">
+                            <div class="form-group fade-in-up stagger-3">
                             <label for="signup-email" class="required-field">Email Address</label>
-                            <input type="email" class="form-control" id="signup-email" name="email" placeholder="Enter your email" required>
+                                <div class="position-relative">
+                                    <i class="fas fa-envelope input-icon"></i>
+                                    <input type="email" class="form-control" id="signup-email" name="email" placeholder="Enter your email" required>
+                                </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                    <div class="form-group fade-in-up stagger-4">
                                     <label for="signup-password" class="required-field">Password</label>
-                                    <input type="password" class="form-control" id="signup-password" name="password" placeholder="Enter your password" required>
+                                        <div class="position-relative">
+                                            <i class="fas fa-lock input-icon"></i>
+                                            <input type="password" class="form-control" id="signup-password" name="password" placeholder="Enter your password" required>
+                                        </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                    <div class="form-group fade-in-up stagger-5">
                                     <label for="confirm-password" class="required-field">Confirm Password</label>
-                                    <input type="password" class="form-control" id="confirm-password" name="confirm_password" placeholder="Confirm your password" required>
+                                        <div class="position-relative">
+                                            <i class="fas fa-lock-open input-icon"></i>
+                                            <input type="password" class="form-control" id="confirm-password" name="confirm_password" placeholder="Confirm your password" required>
+                                        </div>
                                 </div>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100">Create Account</button>
+                            <button type="submit" class="btn btn-signup fade-in-up stagger-1" id="signupBtn">
+                                <span class="btn-text">Create Doctor Account</span>
+                                <div class="spinner" id="signupSpinner"></div>
+                            </button>
                     </form>
 
-                    <div class="text-center mt-4">
+                        <div class="signup-footer fade-in-up stagger-2">
                         <p>By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+
+        // Form Enhancement
+        const signupForm = document.getElementById('doctorSignupForm');
+        const signupBtn = document.getElementById('signupBtn');
+        const signupSpinner = document.getElementById('signupSpinner');
+        const btnText = signupBtn.querySelector('.btn-text');
+
+        // Form validation functions
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validateName(name) {
+            return name.trim().length >= 2;
+        }
+
+        function validateNID(nid) {
+            return nid.trim().length >= 8;
+        }
+
+        function validatePassword(password) {
+            return password.length >= 6;
+        }
+
+        function addValidationClass(input, isValid) {
+            input.classList.remove('is-valid', 'is-invalid');
+            if (input.value.trim() !== '') {
+                input.classList.add(isValid ? 'is-valid' : 'is-invalid');
+            }
+        }
+
+        // Real-time validation
+        const nameInput = document.getElementById('signup-name');
+        const emailInput = document.getElementById('signup-email');
+        const nidInput = document.getElementById('signup-nid');
+        const passwordInput = document.getElementById('signup-password');
+        const confirmPasswordInput = document.getElementById('confirm-password');
+
+        nameInput.addEventListener('input', function() {
+            addValidationClass(this, validateName(this.value));
+        });
+
+        emailInput.addEventListener('input', function() {
+            addValidationClass(this, validateEmail(this.value));
+        });
+
+        nidInput.addEventListener('input', function() {
+            addValidationClass(this, validateNID(this.value));
+        });
+
+        passwordInput.addEventListener('input', function() {
+            addValidationClass(this, validatePassword(this.value));
+            // Check password match
+            if (confirmPasswordInput.value) {
+                addValidationClass(confirmPasswordInput, this.value === confirmPasswordInput.value);
+            }
+        });
+
+        confirmPasswordInput.addEventListener('input', function() {
+            addValidationClass(this, passwordInput.value === this.value);
+        });
+
+        // Form submission with loading state
+        signupForm.addEventListener('submit', function(e) {
+            const requiredFields = signupForm.querySelectorAll('[required]');
+            let isValid = true;
+
+            // Validate all required fields
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    addValidationClass(field, false);
+                    isValid = false;
+                } else {
+                    if (field.type === 'email') {
+                        const emailValid = validateEmail(field.value);
+                        addValidationClass(field, emailValid);
+                        if (!emailValid) isValid = false;
+                    } else if (field.id === 'signup-name') {
+                        const nameValid = validateName(field.value);
+                        addValidationClass(field, nameValid);
+                        if (!nameValid) isValid = false;
+                    } else if (field.id === 'signup-nid') {
+                        const nidValid = validateNID(field.value);
+                        addValidationClass(field, nidValid);
+                        if (!nidValid) isValid = false;
+                    } else if (field.type === 'password') {
+                        const passwordValid = validatePassword(field.value);
+                        addValidationClass(field, passwordValid);
+                        if (!passwordValid) isValid = false;
+                    } else {
+                        addValidationClass(field, true);
+                    }
+                }
+            });
+
+            // Check password confirmation
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                addValidationClass(confirmPasswordInput, false);
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+                return;
+            }
+
+            // Show loading state
+            signupSpinner.style.display = 'inline-block';
+            btnText.textContent = 'Creating Account...';
+            signupBtn.disabled = true;
+            
+            // Add a small delay to show the loading animation
+            setTimeout(() => {
+                // Form will submit naturally after this
+            }, 500);
+        });
+
+        // Enhanced input focus effects
+        const formInputs = document.querySelectorAll('.form-control');
+        formInputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.closest('.form-group').classList.add('focused');
+            });
+
+            input.addEventListener('blur', function() {
+                this.closest('.form-group').classList.remove('focused');
+            });
+        });
+
+        // Age and Date of Birth sync
+        const ageInput = document.getElementById('signup-age');
+        const dobInput = document.getElementById('signup-dob');
+
+        dobInput.addEventListener('change', function() {
+            if (this.value) {
+                const today = new Date();
+                const birthDate = new Date(this.value);
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const monthDiff = today.getMonth() - birthDate.getMonth();
+                
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                
+                if (age >= 0 && age <= 120) {
+                    ageInput.value = age;
+                }
+            }
+        });
+
+        // Phone number formatting
+        const phoneInput = document.getElementById('signup-phone');
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                if (value.length <= 3) {
+                    value = value;
+                } else if (value.length <= 6) {
+                    value = value.slice(0, 3) + '-' + value.slice(3);
+                } else {
+                    value = value.slice(0, 3) + '-' + value.slice(3, 6) + '-' + value.slice(6, 10);
+                }
+            }
+            e.target.value = value;
+        });
+
+        // Keyboard accessibility
+        document.addEventListener('keydown', function(e) {
+            // Enter key to submit form
+            if (e.key === 'Enter' && document.activeElement.tagName === 'INPUT') {
+                e.preventDefault();
+                signupBtn.click();
+            }
+        });
+
+        // Add staggered animations
+        setTimeout(() => {
+            const elements = document.querySelectorAll('.fade-in-up');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        }, 1000);
+    </script>
   </body>
 </html>
 
