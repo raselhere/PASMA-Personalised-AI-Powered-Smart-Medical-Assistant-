@@ -752,6 +752,39 @@
             background-size: 16px;
         }
 
+        .error-message {
+            color: #dc3545;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+            font-weight: 500;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .error-message i {
+            margin-right: 5px;
+            font-size: 0.75rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
         /* Loading spinner */
         .spinner {
             width: 20px;
@@ -858,15 +891,23 @@
                                     <i class="fas fa-envelope input-icon"></i>
                                     <input type="email" class="form-control" id="login-email" name="email"
                                            placeholder="Enter your email address" required>
-                        </div>
-                    </div>
+                                </div>
+                                <div class="error-message" id="email-error">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <span id="email-error-text">Please enter a valid email address</span>
+                                </div>
+                            </div>
 
                             <div class="form-group fade-in-up stagger-2">
-                        <label for="login-password">Password</label>
+                                <label for="login-password">Password</label>
                                 <div class="position-relative">
                                     <i class="fas fa-lock input-icon"></i>
-                        <input type="password" class="form-control" id="login-password" name="password"
-                               placeholder="Enter your password" required>
+                                    <input type="password" class="form-control" id="login-password" name="password"
+                                           placeholder="Enter your password" required>
+                                </div>
+                                <div class="error-message" id="password-error">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <span id="password-error-text">Password is required</span>
                                 </div>
                             </div>
 
@@ -874,7 +915,7 @@
                                 <span class="btn-text">Sign In to PASMA</span>
                                 <div class="spinner" id="loginSpinner"></div>
                             </button>
-                    </form>
+                        </form>
 
                         <div class="login-footer fade-in-up stagger-4">
                             <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign Up Now</a></p>
@@ -903,10 +944,41 @@
         const loginSpinner = document.getElementById('loginSpinner');
         const btnText = loginBtn.querySelector('.btn-text');
 
+        // Error message elements
+        const emailError = document.getElementById('email-error');
+        const passwordError = document.getElementById('password-error');
+        const emailErrorText = document.getElementById('email-error-text');
+        const passwordErrorText = document.getElementById('password-error-text');
+
         // Form validation
         function validateEmail(email) {
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return re.test(email);
+        }
+
+        function showError(element, message) {
+            element.classList.add('show');
+            element.querySelector('span').textContent = message;
+            element.parentElement.querySelector('.form-control').classList.add('is-invalid');
+            element.parentElement.querySelector('.form-control').classList.remove('is-valid');
+        }
+
+        function hideError(element) {
+            element.classList.remove('show');
+            element.parentElement.querySelector('.form-control').classList.remove('is-invalid');
+        }
+
+        function showSuccess(element) {
+            element.parentElement.querySelector('.form-control').classList.add('is-valid');
+            element.parentElement.querySelector('.form-control').classList.remove('is-invalid');
+            hideError(element);
+        }
+
+        function shakeElement(element) {
+            element.classList.add('shake');
+            setTimeout(() => {
+                element.classList.remove('shake');
+            }, 500);
         }
 
         function addValidationClass(input, isValid) {
@@ -921,15 +993,78 @@
         const passwordInput = document.getElementById('login-password');
 
         emailInput.addEventListener('input', function() {
-            addValidationClass(this, validateEmail(this.value));
+            const isValid = validateEmail(this.value);
+            addValidationClass(this, isValid);
+            if (this.value.trim() === '') {
+                hideError(emailError);
+            } else if (isValid) {
+                showSuccess(emailError);
+            } else {
+                showError(emailError, 'Please enter a valid email address');
+            }
         });
 
         passwordInput.addEventListener('input', function() {
-            addValidationClass(this, this.value.length >= 6);
+            const isValid = this.value.length >= 1;
+            addValidationClass(this, isValid);
+            if (this.value.trim() === '') {
+                hideError(passwordError);
+            } else if (isValid) {
+                showSuccess(passwordError);
+            } else {
+                showError(passwordError, 'Password is required');
+            }
         });
+
+        // Check if there's a server-side error message
+        const serverError = "{{ error if error else '' }}";
+        if (serverError) {
+            // Show server error message
+            setTimeout(() => {
+                if (emailInput.value.trim() === '') {
+                    showError(emailError, 'Email is required');
+                    shakeElement(emailInput);
+                } else if (!validateEmail(emailInput.value)) {
+                    showError(emailError, 'Please enter a valid email address');
+                    shakeElement(emailInput);
+                } else {
+                    showError(passwordError, serverError);
+                    shakeElement(passwordInput);
+                }
+            }, 500);
+        }
 
         // Form submission with loading state
         loginForm.addEventListener('submit', function(e) {
+            let hasErrors = false;
+            
+            // Validate email
+            if (emailInput.value.trim() === '') {
+                showError(emailError, 'Email is required');
+                shakeElement(emailInput);
+                hasErrors = true;
+            } else if (!validateEmail(emailInput.value)) {
+                showError(emailError, 'Please enter a valid email address');
+                shakeElement(emailInput);
+                hasErrors = true;
+            } else {
+                showSuccess(emailError);
+            }
+
+            // Validate password
+            if (passwordInput.value.trim() === '') {
+                showError(passwordError, 'Password is required');
+                shakeElement(passwordInput);
+                hasErrors = true;
+            } else {
+                showSuccess(passwordError);
+            }
+
+            if (hasErrors) {
+                e.preventDefault();
+                return;
+            }
+
             // Show loading state
             loginSpinner.style.display = 'inline-block';
             btnText.textContent = 'Signing In...';

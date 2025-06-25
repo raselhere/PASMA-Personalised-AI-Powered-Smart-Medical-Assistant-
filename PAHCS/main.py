@@ -362,7 +362,7 @@ def login():
             session['login_success'] = True  # Set a session variable for success message
             return redirect(url_for('index'))  # Redirect to dashboard
         else:
-            return "Invalid credentials!", 401
+            return render_template('login.html', error="Invalid email or password. Please try again.")
     return render_template('login.html')
 
 

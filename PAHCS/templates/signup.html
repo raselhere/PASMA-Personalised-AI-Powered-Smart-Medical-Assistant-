@@ -65,7 +65,7 @@
                 radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 40% 40%, rgba(0, 212, 170, 0.1) 0%, transparent 50%);
             z-index: -1;
-            animation: backgroundShift 20s ease-in-out infinite;
+            animation: backgroundShift 12s ease-in-out infinite;
         }
 
         @keyframes backgroundShift {
@@ -91,15 +91,15 @@
             background: var(--gradient-primary);
             border-radius: 50%;
             opacity: 0.1;
-            animation: float-particles 12s ease-in-out infinite;
+            animation: float-particles 8s ease-in-out infinite;
         }
 
         .particle:nth-child(1) { width: 60px; height: 60px; left: 10%; animation-delay: 0s; }
-        .particle:nth-child(2) { width: 40px; height: 40px; left: 20%; animation-delay: 3s; }
-        .particle:nth-child(3) { width: 80px; height: 80px; left: 35%; animation-delay: 6s; }
-        .particle:nth-child(4) { width: 30px; height: 30px; left: 70%; animation-delay: 2s; }
-        .particle:nth-child(5) { width: 100px; height: 100px; left: 80%; animation-delay: 8s; }
-        .particle:nth-child(6) { width: 50px; height: 50px; left: 60%; animation-delay: 4s; }
+        .particle:nth-child(2) { width: 40px; height: 40px; left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { width: 80px; height: 80px; left: 35%; animation-delay: 2s; }
+        .particle:nth-child(4) { width: 30px; height: 30px; left: 70%; animation-delay: 3s; }
+        .particle:nth-child(5) { width: 100px; height: 100px; left: 80%; animation-delay: 4s; }
+        .particle:nth-child(6) { width: 50px; height: 50px; left: 60%; animation-delay: 5s; }
 
         @keyframes float-particles {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -182,7 +182,7 @@
             margin: 0 auto 30px;
             backdrop-filter: blur(10px);
             border: 3px solid rgba(255, 255, 255, 0.3);
-            animation: logoFloat 3s ease-in-out infinite;
+            animation: logoFloat 2s ease-in-out infinite;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
@@ -400,7 +400,7 @@
             justify-content: center;
             margin: 0 auto 20px;
             box-shadow: var(--shadow-medium);
-            animation: iconPulse 2s ease-in-out infinite;
+            animation: iconPulse 1.5s ease-in-out infinite;
         }
 
         @keyframes iconPulse {
@@ -485,7 +485,7 @@
             padding: 14px 35px;
             font-weight: 600;
             border-radius: 50px;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             font-size: 1rem;
             color: var(--white);
             width: 100%;
@@ -502,7 +502,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.6s;
+            transition: left 0.4s;
         }
 
         .btn-signup:hover::before {
@@ -809,7 +809,7 @@
         .fade-in-up {
             opacity: 0;
             transform: translateY(30px);
-            animation: fadeInUp 0.6s ease forwards;
+            animation: fadeInUp 0.4s ease forwards;
         }
 
         @keyframes fadeInUp {
@@ -1109,7 +1109,7 @@
     <script>
         // Initialize AOS
         AOS.init({
-            duration: 800,
+            duration: 500,
             once: true,
             offset: 50
         });
@@ -1335,7 +1335,7 @@
                 setTimeout(() => {
                     el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
-                }, index * 100);
+                }, index * 60);
             });
         }, 1000);
 
