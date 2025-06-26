@@ -1,3 +1,11 @@
+@about.html Study this file and 
+move all of it's css codes in @global.css page.
+then use that css file to style in the about page.
+The existing design must be remain same. i repeat the existing design must not change. so study each every word of code carefully and then proceed.
+
+
+
+
 # PASMA-Personalised-AI-Powered-Smart-Medical-Assistant-
 Personalised AI-powered health care system built with Flask. Features a medical admin panel with CRUD functionality, chatbot integration, role-based access, and structured JSON storage for managing patients, doctors, and medicines in a web-based environment.
 
