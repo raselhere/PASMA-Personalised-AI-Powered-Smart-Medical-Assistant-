@@ -10,13 +10,22 @@
         "license": "9999388333",
         "nid": "7746383833",
         "specialization": "",
-        "experience": "",
-        "fee": "",
-        "hospital": "",
+        "experience": "10",
+        "fee": "20",
+        "hospital": "Lab Aid Hospital",
         "bio": "",
         "languages": "",
         "address": "",
-        "timeSlots": [],
-        "createdAt": "2025-06-06 01:48:28"
+        "timeSlots": [
+            {
+                "day": "Friday",
+                "slots": [
+                    "09:00 AM - 12:00 PM",
+                    "02:00 PM - 05:00 PM"
+                ]
+            }
+        ],
+        "createdAt": "2025-06-06 01:48:28",
+        "updatedAt": "2025-07-01 00:11:24"
     }
 ]
